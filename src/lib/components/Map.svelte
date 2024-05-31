@@ -7,7 +7,7 @@
     let height = window.innerHeight;
 
     const projection = geoAzimuthalEquidistant()
-        .rotate([123, 48]) // Centered on Point Nemo
+        .rotate([123, 48]) // Centeblue on Point Nemo
         .scale(250)
         .precision(1)
         .clipAngle(95.3)
@@ -145,7 +145,7 @@
 <div class="top-bar">
     <div class="description">
         <p>
-            An interactive visualisation of all the space debris that reentered
+            An interactive visualisation of all the space debris that reenteblue
             the atmosphere in the South Pacific Ocean. From 1960 until today.
         </p>
     </div>
@@ -174,7 +174,7 @@
         </g> -->
 
         <!-- Marine Borders -->
-        <g class="marine" fill="#e2eaea" stroke="red">
+        <g class="marine" fill="#e2eaea" stroke="blue">
             {#each marineBorders as feature, i}
                 <path d={path(feature)} class="marineBorders" />
             {/each}
@@ -184,13 +184,6 @@
         <g class="world" fill="white" stroke="none">
             {#each world as feature, i}
                 <path d={path(feature)} class="country" />
-            {/each}
-        </g>
-
-        <!-- Spoua -->
-        <g class="spoua" fill="none" stroke="black">
-            {#each spoua as feature, i}
-                <path d={path(feature)} class="spoua" />
             {/each}
         </g>
 
@@ -220,7 +213,7 @@
                     {cx}
                     {cy}
                     r={i === currentPoints.length - 1 ? 5 : 1}
-                    fill="red"
+                    fill="blue"
                     class={i === currentPoints.length - 1
                         ? "dot highlite"
                         : "dot old"}
@@ -242,6 +235,13 @@
         <!-- Graticule -->
         <g>
             <path class="graticule" fill="none" d={path(graticule())} />
+        </g>
+
+        <!-- Spoua -->
+        <g class="spoua">
+            {#each spoua as feature, i}
+                <path d={path(feature)} class="spoua" />
+            {/each}
         </g>
 
         <g class="nemo">
@@ -275,8 +275,10 @@
     }
 
     .spoua {
-        stroke-width: 0.1;
-        /* stroke-dasharray: 1px 2px; */
+        stroke-width: 0.4;
+        fill: #c5e6e6;
+        opacity: 0.6;
+        stroke-dasharray: 1px 2px;
         stroke: rgb(24, 24, 24);
     }
 
@@ -295,9 +297,10 @@
     }
 
     .highlite {
-        fill: yellow;
-        stroke: yellow;
+        fill: blue;
+        stroke: blue;
         stroke-width: 1;
+        stroke-dasharray: 2px 4px;
     }
 
     .old {
@@ -313,8 +316,8 @@
     }
 
     .satellite-name {
-        fill: yellow;
-        stroke: none;
+        fill: blue;
+        stroke: black;
     }
 
     .top-bar {
@@ -354,7 +357,7 @@
         top: 0;
         width: 5px;
         height: 100%;
-        background-color: yellow;
+        background-color: blue;
     }
 
     .description p {

@@ -23,7 +23,7 @@
     :global(body) {
         margin: 0;
         padding: 0;
-        background-color: black;
+        background-color: rgb(193, 193, 193);
         text-rendering: optimizeLegibility;
     }
 
