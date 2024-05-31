@@ -55,9 +55,9 @@
             const marineBordersData = await fetch(
                 "EEZ_land_v2_201410.json",
             ).then((d) => d.json());
-            const navareaData = await fetch("navarea.json").then((d) =>
-                d.json(),
-            );
+            // const navareaData = await fetch("navarea.json").then((d) =>
+            //     d.json(),
+            // );
             const spouaData = await fetch("spoua.json").then((d) => d.json());
 
             world = topojson.feature(
@@ -68,10 +68,10 @@
                 marineBordersData,
                 marineBordersData.objects.EEZ_land_v2_201410,
             ).features;
-            navarea = topojson.feature(
-                navareaData,
-                navareaData.objects.navarea,
-            ).features;
+            // navarea = topojson.feature(
+            //     navareaData,
+            //     navareaData.objects.navarea,
+            // ).features;
             spoua = topojson.feature(
                 spouaData,
                 spouaData.objects.spoua,
@@ -164,17 +164,17 @@
     </defs>
 
     <g clip-path="url(#clip)">
-        <circle cx={width / 2} cy={height / 2} r={width / 2} fill="#f0f0f0" />
+        <circle cx={width / 2} cy={height / 2} r={width / 2} fill="#efffff" />
 
         <!-- Navarea -->
-        <g class="navarea" fill="#d0d1d4" stroke="none">
+        <!-- <g class="navarea" fill="#d0d1d4" stroke="none">
             {#each navarea as feature, i}
                 <path d={path(feature)} class="navarea" />
             {/each}
-        </g>
+        </g> -->
 
         <!-- Marine Borders -->
-        <g class="marine" fill="#c2c2c2" stroke="red">
+        <g class="marine" fill="#e2eaea" stroke="red">
             {#each marineBorders as feature, i}
                 <path d={path(feature)} class="marineBorders" />
             {/each}
