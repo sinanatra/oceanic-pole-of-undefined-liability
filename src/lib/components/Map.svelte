@@ -328,7 +328,7 @@
         left: 0;
         height: 100%;
         background-color: gray;
-        transition: width 0.5s;
+        /* transition: width 0.2s; */
     }
 
     .draggable {
