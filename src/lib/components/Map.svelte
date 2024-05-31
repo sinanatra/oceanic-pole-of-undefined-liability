@@ -115,28 +115,45 @@
         }, 500);
     };
 
-    function handleSliderChange(event) {
-        index = parseInt(event.target.value);
+    function handleDrag(event) {
+        const rect = event.currentTarget.getBoundingClientRect();
+        let x = event.clientX - rect.left;
+        const width = rect.width;
+        if (x < 0) {
+            x = 0;
+        } else if (x > width) {
+            x = width;
+        }
+        const percentage = (x / width) * 100;
+        index = Math.floor((percentage / 100) * points.length);
         currentPoints = points.slice(0, index + 1);
-        if (interval) clearInterval(interval);
-        startAddingPoints();
     }
 </script>
 
-{#if currentPoints.length > 0}
-    <div>
-        <input
-            type="range"
-            id="point-slider"
-            min="0"
-            max={points.length - 1}
-            bind:value={index}
-            on:input={handleSliderChange}
-        />
-        <span>{currentPoints[currentPoints.length - 1]?.name}</span>
-        <span>{currentPoints[currentPoints.length - 1]?.year}</span>
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div class="progress-bar" on:mousedown={handleDrag}>
+    <div
+        class="progress"
+        style="width: {((index + 1) / points.length) * 100}%;"
+    ></div>
+    <div
+        class="draggable"
+        style="left: {((index + 1) / points.length) * 100}%;"
+    ></div>
+</div>
+
+<div class="top-bar">
+    <div class="description">
+        <p>
+            An interactive visualisation of all the space debris that reentered
+            the atmosphere in the South Pacific Ocean. From 1960 until today.
+        </p>
     </div>
-{/if}
+    <div class="satellite-info">
+        <span>Satellite: {currentPoints[currentPoints.length - 1]?.name}</span>
+        <span>Year: {currentPoints[currentPoints.length - 1]?.year}</span>
+    </div>
+</div>
 
 <svg viewBox="0 0 {width} {height}" style="width: 100%; height: 100vh;">
     <defs>
@@ -175,14 +192,6 @@
             {/each}
         </g>
 
-        <g class="nemo">
-            {#each PointNemo as { cx, cy, name }}
-                <circle {cx} {cy} r={1} fill="black" />
-                <text x={cx + 4} y={cy + 2} font-size="8">
-                    {name}
-                </text>
-            {/each}
-        </g>
         <!-- Lines connecting points -->
         <g>
             {#if currentPoints.length > 1}
@@ -231,6 +240,15 @@
         <!-- Graticule -->
         <g>
             <path class="graticule" fill="none" d={path(graticule())} />
+        </g>
+
+        <g class="nemo">
+            {#each PointNemo as { cx, cy, name }}
+                <circle {cx} {cy} r={1} fill="black" />
+                <text x={cx + 4} y={cy + 2} font-size="8">
+                    {name}
+                </text>
+            {/each}
         </g>
     </g>
 </svg>
@@ -281,8 +299,47 @@
         stroke: none;
     }
 
-    div {
+    .top-bar {
+        background-color: black;
+        color: white;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .satellite-info span {
+        margin-right: 20px;
+    }
+
+    .progress-bar {
+        position: relative;
+        width: 100%;
+        height: 10px;
+        background-color: black;
+        overflow: hidden;
+        cursor: ew-resize;
+    }
+
+    .progress {
         position: absolute;
-        top: 10px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background-color: gray;
+        transition: width 0.5s;
+    }
+
+    .draggable {
+        position: absolute;
+        top: 0;
+        width: 5px;
+        height: 100%;
+        background-color: yellow;
+    }
+
+    .description p {
+        margin: 0;
     }
 </style>
