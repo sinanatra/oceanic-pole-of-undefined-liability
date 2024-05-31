@@ -188,7 +188,7 @@
         </g>
 
         <!-- Spoua -->
-        <g fill="none" stroke="black">
+        <g class="spoua" fill="none" stroke="black">
             {#each spoua as feature, i}
                 <path d={path(feature)} class="spoua" />
             {/each}
@@ -272,6 +272,12 @@
         stroke-width: 0.1;
         stroke-dasharray: 1px 2px;
         stroke: black;
+    }
+
+    .spoua {
+        stroke-width: 0.1;
+        /* stroke-dasharray: 1px 2px; */
+        stroke: rgb(24, 24, 24);
     }
 
     g {
