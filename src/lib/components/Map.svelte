@@ -164,7 +164,7 @@
     </defs>
 
     <g clip-path="url(#clip)">
-        <circle cx={width / 2} cy={height / 2} r={width / 2} fill="#efffff" />
+        <circle cx={width / 2} cy={height / 2} r={width} fill="#efffff" />
 
         <!-- Navarea -->
         <!-- <g class="navarea" fill="#d0d1d4" stroke="none">
