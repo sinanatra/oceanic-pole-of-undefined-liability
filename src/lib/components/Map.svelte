@@ -3,12 +3,12 @@
     import * as topojson from "topojson-client";
     import { geoPath, geoAzimuthalEquidistant, geoGraticule } from "d3-geo";
 
-    let width = 840;
-    let height = 500;
+    let width = window.innerWidth;
+    let height = window.innerHeight;
 
     const projection = geoAzimuthalEquidistant()
         .rotate([123, 48]) // Centered on Point Nemo
-        .scale(150)
+        .scale(250)
         .precision(1)
         .clipAngle(95.3)
         .translate([width / 2, height / 2]);
