@@ -241,7 +241,7 @@
     }
 
     .graticule {
-        stroke: #ccc;
+        stroke: darkgray;
     }
 
     g {

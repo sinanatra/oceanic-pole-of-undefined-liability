@@ -1,28 +1,18 @@
-# create-svelte
+# Oceanic Pole of Undefined Liability
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+A timeline visualising all the artificial space objects that fell within the South Pacific Ocean Uninhabited Area (SPOUA) from 1959 until now - reflecting on the past, present and future presence of space objects in marine environments.
 
-## Creating a project
+By geolocating their predicted reentry, the resulting coordinates are juxtaposed with the legal limits of coastal states‘ sovereign rights, spanning from Exclusive Economic Zones to Navigational Areas.
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
+While the first shows the conflicting intersection with the UN Law of the Sea and a possible breach thereof, the latter emphasises the constant risk of impact that re-entering spacecraft pose to shipping routes within the South Pacific Ocean.
+          
+ 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Once you've created a project and installed dependencies with `yarn install`), start a development server:
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+yarn dev
 ```
 
 ## Building
@@ -30,9 +20,13 @@ npm run dev -- --open
 To create a production version of your app:
 
 ```bash
-npm run build
+yarn build
 ```
 
-You can preview the production build with `npm run preview`.
+You can preview the production build with `yarn preview`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Deploy it to Github:
+```bash
+yarn deploy
+```
+
