@@ -11,7 +11,7 @@ While the first shows the conflicting intersection with the UN Law of the Sea an
  
 ## Developing
 
-Once you've created a project and installed dependencies with `yarn install`), start a development server:
+Once you've cloned the project and installed dependencies with `yarn install`, start a development server:
 
 ```bash
 yarn dev
@@ -19,15 +19,12 @@ yarn dev
 
 ## Building
 
-To create a production version of your app:
-
 ```bash
 yarn build
 ```
-
 You can preview the production build with `yarn preview`.
 
-Deploy it to Github:
+##  Deploy it to Github:
 ```bash
 yarn deploy
 ```
