@@ -164,15 +164,17 @@
     </defs>
 
     <g clip-path="url(#clip)">
+        <circle cx={width / 2} cy={height / 2} r={width / 2} fill="#f0f0f0" />
+
         <!-- Navarea -->
-        <g fill="#d0d1d4" stroke="black">
+        <g class="navarea" fill="#d0d1d4" stroke="none">
             {#each navarea as feature, i}
                 <path d={path(feature)} class="navarea" />
             {/each}
         </g>
 
         <!-- Marine Borders -->
-        <g fill="#c2c2c2" stroke="black">
+        <g class="marine" fill="#c2c2c2" stroke="red">
             {#each marineBorders as feature, i}
                 <path d={path(feature)} class="marineBorders" />
             {/each}
@@ -255,11 +257,21 @@
 
 <style>
     .world {
+        stroke-width: 0.2;
         fill: #fcfcfc !important;
     }
 
+    .navarea,
+    .marine {
+        stroke: black;
+        stroke-width: 0.1;
+        stroke-dasharray: 1px 2px;
+    }
+
     .graticule {
-        stroke: darkgray;
+        stroke-width: 0.1;
+        stroke-dasharray: 1px 2px;
+        stroke: black;
     }
 
     g {
