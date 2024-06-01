@@ -131,18 +131,6 @@
     }
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="progress-bar" on:mousedown={handleDrag}>
-    <div
-        class="progress"
-        style="width: {((index + 1) / points.length) * 100}%;"
-    ></div>
-    <div
-        class="draggable"
-        style="left: {((index + 1) / points.length) * 100}%;"
-    ></div>
-</div>
-
 <div class="top-bar">
     <div class="description">
         <p>
@@ -154,6 +142,18 @@
         <span>Satellite: {currentPoints[currentPoints.length - 1]?.name}</span>
         <span>Year: {currentPoints[currentPoints.length - 1]?.year}</span>
     </div>
+</div>
+
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div class="progress-bar" on:mousedown={handleDrag}>
+    <div
+        class="progress"
+        style="width: {((index + 1) / points.length) * 100}%;"
+    ></div>
+    <div
+        class="draggable"
+        style="left: {((index + 1) / points.length) * 100}%;"
+    ></div>
 </div>
 
 <svg viewBox="0 0 {width} {height}" style="width: 100%; height: 100vh;">
