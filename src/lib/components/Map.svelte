@@ -333,7 +333,7 @@
 
     .satellite-name {
         fill: blue;
-        stroke: black;
+        stroke: none;
     }
 
     .top-bar {
