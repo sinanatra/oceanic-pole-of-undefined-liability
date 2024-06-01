@@ -163,13 +163,15 @@
             <use href="#sphere" />
         </clipPath>
     </defs>
-    <text text-anchor="left" dy="-5" fill="blue">
-        <textPath href="#sphere" startOffset="60%">
-            {currentPoints[currentPoints.length - 1]?.name}
-            —
-            {currentPoints[currentPoints.length - 1]?.year}
-        </textPath>
-    </text>
+    {#if currentPoints.length > 1}
+        <text text-anchor="left" dy="-5" fill="blue">
+            <textPath href="#sphere" startOffset="60%">
+                {currentPoints[currentPoints.length - 1]?.name}
+                —
+                {currentPoints[currentPoints.length - 1]?.year}
+            </textPath>
+        </text>
+    {/if}
 
     <g clip-path="url(#clip)">
         <circle cx={width / 2} cy={height / 2} r={width} fill="#eeffff" />
