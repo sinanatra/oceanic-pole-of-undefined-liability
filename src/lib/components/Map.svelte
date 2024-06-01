@@ -2,43 +2,32 @@
     import { onMount } from "svelte";
     import * as topojson from "topojson-client";
     import { geoPath, geoAzimuthalEquidistant, geoGraticule } from "d3-geo";
+    import TopBar from "@components/TopBar.svelte";
+    import ProgressBar from "@components/ProgressBar.svelte";
 
     let width = window.innerWidth;
     let height = window.innerHeight;
 
     const projection = geoAzimuthalEquidistant()
-        .rotate([123, 48]) // center on Point Nemo
+        .rotate([123, 48])
         .scale(250)
         .precision(1)
         .clipAngle(95.3)
         .translate([width / 2, height / 2]);
 
     const path = geoPath().projection(projection);
-    // const graticule = geoGraticule().step([0, 10]);
 
     export let data;
 
     let PointNemo = [
-        {
-            lon: -126.3622344,
-            lat: -72.9741938,
-            name: "Maher Island",
-        },
+        { lon: -126.3622344, lat: -72.9741938, name: "Maher Island" },
         {
             lon: -109.452777777778,
             lat: -27.2013888888889,
             name: "Easter Island",
         },
-        {
-            lon: -124.787888,
-            lat: -24.6807263,
-            name: "Ducie Island",
-        },
-        {
-            lon: -123.3933333,
-            lat: -48.8766667,
-            name: "Point Nemo",
-        },
+        { lon: -124.787888, lat: -24.6807263, name: "Ducie Island" },
+        { lon: -123.3933333, lat: -48.8766667, name: "Point Nemo" },
     ];
     let world = [];
     let marineBorders = [];
@@ -46,6 +35,7 @@
     let spoua = [];
     let points = [];
     let currentPoints = [];
+    let currentPoint = null;
     let index = 0;
     let interval;
 
@@ -92,11 +82,7 @@
 
             PointNemo = PointNemo.map((d) => {
                 const [cx, cy] = projection([d.lon, d.lat]);
-                return {
-                    cx,
-                    cy,
-                    name: d.name,
-                };
+                return { cx, cy, name: d.name };
             });
 
             startAddingPoints();
@@ -106,9 +92,13 @@
     });
 
     const startAddingPoints = () => {
+        if (interval) clearInterval(interval);
+        index = 0;
+        currentPoints = [];
         interval = setInterval(() => {
             if (index < points.length) {
                 currentPoints = [...currentPoints, points[index]];
+                currentPoint = points[index];
                 index += 1;
             } else {
                 clearInterval(interval);
@@ -116,45 +106,15 @@
         }, 500);
     };
 
-    function handleDrag(event) {
-        const rect = event.currentTarget.getBoundingClientRect();
-        let x = event.clientX - rect.left;
-        const width = rect.width;
-        if (x < 0) {
-            x = 0;
-        } else if (x > width) {
-            x = width;
-        }
-        const percentage = (x / width) * 100;
-        index = Math.floor((percentage / 100) * points.length);
+    const handleUpdateIndex = (newIndex) => {
+        index = newIndex.detail;
         currentPoints = points.slice(0, index + 1);
-    }
+        currentPoint = currentPoints[currentPoints.length - 1];
+    };
 </script>
 
-<div class="top-bar">
-    <div class="description">
-        <p>
-            An interactive visualisation of all the space debris that reenteblue
-            the atmosphere in the South Pacific Ocean. From 1960 until today.
-        </p>
-    </div>
-    <div class="satellite-info">
-        <span>Satellite: {currentPoints[currentPoints.length - 1]?.name}</span>
-        <span>Year: {currentPoints[currentPoints.length - 1]?.year}</span>
-    </div>
-</div>
-
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="progress-bar" on:mousedown={handleDrag}>
-    <div
-        class="progress"
-        style="width: {((index + 1) / points.length) * 100}%;"
-    ></div>
-    <div
-        class="draggable"
-        style="left: {((index + 1) / points.length) * 100}%;"
-    ></div>
-</div>
+<TopBar {currentPoint} />
+<ProgressBar {index} {points} on:updateIndex={handleUpdateIndex} />
 
 <svg viewBox="0 0 {width} {height}" style="width: 100%; height: 100vh;">
     <defs>
@@ -166,9 +126,9 @@
     {#if currentPoints.length > 1}
         <text text-anchor="left" dy="-5" fill="blue">
             <textPath href="#sphere" startOffset="60%">
-                {currentPoints[currentPoints.length - 1]?.name}
-                —
-                {currentPoints[currentPoints.length - 1]?.year}
+                {currentPoints[currentPoints.length - 1]?.name} — {currentPoints[
+                    currentPoints.length - 1
+                ]?.year}
             </textPath>
         </text>
     {/if}
@@ -232,6 +192,7 @@
                 {:else if i === currentPoints.length - 1}
                     <circle {cx} {cy} {r} fill="blue" class="highlite" />
                 {/if}
+
                 <!-- Display satellite name close to the highlighted dot -->
                 {#if i === currentPoints.length - 1}
                     <text
@@ -248,7 +209,7 @@
 
         <!-- Graticule -->
         <!-- <g>
-            <path class="graticule" fill="none" d={path(graticule())} />
+            <path class="graticule" fill="none" d={path(geoGraticule().step([0, 10]))} />
         </g> -->
 
         <!-- Spoua -->
@@ -293,7 +254,6 @@
         fill: #c5e6e6;
         opacity: 0.6;
         stroke-dasharray: 1px 1px;
-        /* stroke: rgb(24, 24, 24); */
     }
 
     g {
@@ -336,49 +296,5 @@
     .satellite-name {
         fill: blue;
         stroke: none;
-    }
-
-    .top-bar {
-        background-color: black;
-        color: white;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 14px;
-    }
-
-    .satellite-info span {
-        margin-right: 20px;
-    }
-
-    .progress-bar {
-        position: relative;
-        width: 100%;
-        height: 10px;
-        background-color: black;
-        overflow: hidden;
-        cursor: pointer;
-    }
-
-    .progress {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        background-color: gray;
-        /* transition: width 0.2s; */
-    }
-
-    .draggable {
-        position: absolute;
-        top: 0;
-        width: 5px;
-        height: 100%;
-        background-color: blue;
-    }
-
-    .description p {
-        margin: 0;
     }
 </style>
