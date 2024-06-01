@@ -14,7 +14,7 @@
         .translate([width / 2, height / 2]);
 
     const path = geoPath().projection(projection);
-    const graticule = geoGraticule().step([0, 10]);
+    // const graticule = geoGraticule().step([0, 10]);
 
     export let data;
 
@@ -42,7 +42,7 @@
     ];
     let world = [];
     let marineBorders = [];
-    let navarea = [];
+    let contour = [];
     let spoua = [];
     let points = [];
     let currentPoints = [];
@@ -55,23 +55,23 @@
             const marineBordersData = await fetch(
                 "EEZ_land_v2_201410.json",
             ).then((d) => d.json());
-            // const navareaData = await fetch("navarea.json").then((d) =>
-            //     d.json(),
-            // );
+            const contourData = await fetch("contour.json").then((d) =>
+                d.json(),
+            );
             const spouaData = await fetch("spoua.json").then((d) => d.json());
 
             world = topojson.feature(
                 worldData,
-                worldData.objects.countries,
+                worldData.objects.land,
             ).features;
             marineBorders = topojson.feature(
                 marineBordersData,
                 marineBordersData.objects.EEZ_land_v2_201410,
             ).features;
-            // navarea = topojson.feature(
-            //     navareaData,
-            //     navareaData.objects.navarea,
-            // ).features;
+            contour = topojson.feature(
+                contourData,
+                contourData.objects.collection,
+            ).features;
             spoua = topojson.feature(
                 spouaData,
                 spouaData.objects.spoua,
@@ -166,13 +166,6 @@
     <g clip-path="url(#clip)">
         <circle cx={width / 2} cy={height / 2} r={width} fill="#eeffff" />
 
-        <!-- Navarea -->
-        <!-- <g class="navarea" fill="#d0d1d4" stroke="none">
-            {#each navarea as feature, i}
-                <path d={path(feature)} class="navarea" />
-            {/each}
-        </g> -->
-
         <!-- Marine Borders -->
         <g class="marine" fill="#e9f4ff" stroke="blue">
             {#each marineBorders as feature, i}
@@ -184,6 +177,13 @@
         <g class="world" fill="white" stroke="none">
             {#each world as feature, i}
                 <path d={path(feature)} class="country" />
+            {/each}
+        </g>
+
+        <!-- contour -->
+        <g class="contour" fill="none" stroke="none">
+            {#each contour as feature, i}
+                <path d={path(feature)} class="contour" />
             {/each}
         </g>
 
@@ -233,9 +233,9 @@
         </g>
 
         <!-- Graticule -->
-        <g>
+        <!-- <g>
             <path class="graticule" fill="none" d={path(graticule())} />
-        </g>
+        </g> -->
 
         <!-- Spoua -->
         <g class="spoua">
@@ -261,14 +261,14 @@
         fill: #fcfcfc !important;
     }
 
-    .navarea,
     .marine {
         stroke: black;
         stroke-width: 0.1;
         stroke-dasharray: 1px 2px;
     }
 
-    .graticule {
+    .graticule,
+    .contour {
         stroke-width: 0.1;
         stroke-dasharray: 1px 2px;
         stroke: black;
@@ -304,8 +304,8 @@
     }
 
     .old {
-        fill: darkgray;
-        stroke: darkgray;
+        fill: rgb(204, 218, 218);
+        stroke: rgb(204, 218, 218);
         stroke-width: 0.1;
     }
 
