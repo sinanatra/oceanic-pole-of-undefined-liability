@@ -162,6 +162,13 @@
             <use href="#sphere" />
         </clipPath>
     </defs>
+    <text text-anchor="left" dy="-5" fill="blue">
+        <textPath href="#sphere" startOffset="60%">
+            {currentPoints[currentPoints.length - 1]?.name}
+            —
+            {currentPoints[currentPoints.length - 1]?.year}
+        </textPath>
+    </text>
 
     <g clip-path="url(#clip)">
         <circle cx={width / 2} cy={height / 2} r={width} fill="#eeffff" />
@@ -275,11 +282,11 @@
     }
 
     .spoua {
-        stroke-width: 0.4;
+        stroke-width: .2;
         fill: #c5e6e6;
         opacity: 0.6;
-        stroke-dasharray: 1px 2px;
-        stroke: rgb(24, 24, 24);
+        stroke-dasharray: 1px 1px;
+        /* stroke: rgb(24, 24, 24); */
     }
 
     g {
