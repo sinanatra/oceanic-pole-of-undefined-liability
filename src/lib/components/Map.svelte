@@ -85,6 +85,7 @@
                         cy,
                         name: d.satellite_name,
                         year: d.satellite_decay,
+                        r: d.rcs,
                     };
                 })
                 .filter((point) => !isNaN(point.cx) && !isNaN(point.cy));
@@ -215,11 +216,11 @@
 
         <!-- Points -->
         <g>
-            {#each currentPoints as { cx, cy, name }, i}
+            {#each currentPoints as { cx, cy, name, r }, i}
                 <circle
                     {cx}
                     {cy}
-                    r={i === currentPoints.length - 1 ? 5 : 1}
+                    {r}
                     fill="blue"
                     class={i === currentPoints.length - 1
                         ? "dot highlite"
@@ -282,7 +283,7 @@
     }
 
     .spoua {
-        stroke-width: .2;
+        stroke-width: 0.2;
         fill: #c5e6e6;
         opacity: 0.6;
         stroke-dasharray: 1px 1px;
@@ -311,8 +312,8 @@
     }
 
     .old {
-        fill: rgb(204, 218, 218);
-        stroke: rgb(204, 218, 218);
+        fill: rgb(193, 212, 212);
+        stroke: rgb(193, 212, 212);
         stroke-width: 0.1;
     }
 
@@ -347,7 +348,7 @@
         height: 10px;
         background-color: black;
         overflow: hidden;
-        cursor: ew-resize;
+        cursor: pointer;
     }
 
     .progress {

@@ -7,7 +7,16 @@
 
     onMount(async () => {
         const response = await fetch("data.json");
-        data = await response.json();
+        const rawData = await response.json();
+
+        // min max rcs
+        const minRcs = Math.min(...rawData.map((d) => d.rcs));
+        const maxRcs = Math.max(...rawData.map((d) => d.rcs));
+
+        data = rawData.map((d) => ({
+            ...d,
+            rcs: 1 + ((d.rcs - minRcs) * 19) / (maxRcs - minRcs),
+        }));
     });
 </script>
 
@@ -23,7 +32,7 @@
     :global(body) {
         margin: 0;
         padding: 0;
-        background-color: rgb(176, 176, 176);
+        background-color: rgb(220, 220, 220);
         text-rendering: optimizeLegibility;
         font-family: sans-serif;
     }
