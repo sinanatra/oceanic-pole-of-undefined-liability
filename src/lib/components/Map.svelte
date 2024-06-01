@@ -164,7 +164,7 @@
     </defs>
 
     <g clip-path="url(#clip)">
-        <circle cx={width / 2} cy={height / 2} r={width} fill="#efffff" />
+        <circle cx={width / 2} cy={height / 2} r={width} fill="#eeffff" />
 
         <!-- Navarea -->
         <!-- <g class="navarea" fill="#d0d1d4" stroke="none">
@@ -174,7 +174,7 @@
         </g> -->
 
         <!-- Marine Borders -->
-        <g class="marine" fill="#e2eaea" stroke="blue">
+        <g class="marine" fill="#e9f4ff" stroke="blue">
             {#each marineBorders as feature, i}
                 <path d={path(feature)} class="marineBorders" />
             {/each}
@@ -246,10 +246,10 @@
 
         <g class="nemo">
             {#each PointNemo as { cx, cy, name }}
-                <circle {cx} {cy} r={1} fill="black" />
-                <text x={cx + 4} y={cy + 2} font-size="8">
-                    {name}
-                </text>
+                {#if cx && cy}
+                    <circle {cx} {cy} r={1} fill="black" />
+                    <text x={cx + 4} y={cy + 2} font-size="8">{name}</text>
+                {/if}
             {/each}
         </g>
     </g>
