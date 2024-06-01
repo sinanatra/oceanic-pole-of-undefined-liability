@@ -233,7 +233,7 @@
                 <!-- Display satellite name close to the highlighted dot -->
                 {#if i === currentPoints.length - 1}
                     <text
-                        x={cx + 8}
+                        x={r + cx + 8}
                         y={cy + 2}
                         class="satellite-name"
                         font-size="8"
