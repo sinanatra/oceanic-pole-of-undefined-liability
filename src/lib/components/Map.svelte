@@ -7,7 +7,7 @@
     let height = window.innerHeight;
 
     const projection = geoAzimuthalEquidistant()
-        .rotate([123, 48]) // Centeblue on Point Nemo
+        .rotate([123, 48]) // center on Point Nemo
         .scale(250)
         .precision(1)
         .clipAngle(95.3)
@@ -217,15 +217,19 @@
         <!-- Points -->
         <g>
             {#each currentPoints as { cx, cy, name, r }, i}
-                <circle
-                    {cx}
-                    {cy}
-                    {r}
-                    fill="blue"
-                    class={i === currentPoints.length - 1
-                        ? "dot highlite"
-                        : "dot old"}
-                />
+                {#if i > 0 && currentPoints[i].name === currentPoints[i - 1].name}
+                    <circle
+                        {cx}
+                        {cy}
+                        {r}
+                        fill="blue"
+                        class={i === currentPoints.length - 1
+                            ? "dot highlite"
+                            : "dot old"}
+                    />
+                {:else if i === currentPoints.length - 1}
+                    <circle {cx} {cy} {r} fill="blue" class="highlite" />
+                {/if}
                 <!-- Display satellite name close to the highlighted dot -->
                 {#if i === currentPoints.length - 1}
                     <text
@@ -315,6 +319,10 @@
         fill: rgb(193, 212, 212);
         stroke: rgb(193, 212, 212);
         stroke-width: 0.1;
+    }
+
+    .hide {
+        display: none;
     }
 
     .nemo text,
