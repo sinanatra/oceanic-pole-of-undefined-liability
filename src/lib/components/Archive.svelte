@@ -73,7 +73,7 @@
     }
 
     input {
-        width: 100%;
+        width: 98%;
         border: none;
         outline: none;
         color: blue;
