@@ -6,18 +6,11 @@
     import ProgressBar from "@components/ProgressBar.svelte";
     import Archive from "@components/Archive.svelte";
 
-    let width = window.innerWidth;
-    let height = window.innerHeight - 10;
+    let width;
+    let height;
     export let data;
 
-    const projection = geoAzimuthalEquidistant()
-        .rotate([123, 48])
-        .scale(230)
-        .precision(1)
-        .clipAngle(100)
-        .translate([width / 3, height / 2]);
-
-    const path = geoPath().projection(projection);
+    $: console.log(width);
 
     let PointNemo = [
         { lon: -126.3622344, lat: -72.9741938, name: "Maher Island" },
@@ -38,8 +31,18 @@
     let currentPoint = null;
     let index = 0;
     let interval;
+    let path;
 
     onMount(async () => {
+        const projection = geoAzimuthalEquidistant()
+            .rotate([123, 48])
+            .scale(300)
+            .precision(1)
+            .clipAngle(100)
+            .translate([width / 2, height / 2]);
+
+        path = geoPath().projection(projection);
+
         try {
             const worldData = await fetch("world.json").then((d) => d.json());
             const marineBordersData = await fetch(
@@ -130,8 +133,8 @@
 </section>
 
 <article>
-    {#if currentPoints.length > 1}
-        <div bind:clientWidth={width} bind:clientHeight={height}>
+    <div bind:clientWidth={width} bind:clientHeight={height}>
+        {#if currentPoints.length > 1}
             <svg
                 viewBox="0 0 {width} {height}"
                 style="width: 100%; height: 100vh;"
@@ -144,7 +147,7 @@
                 </defs>
                 {#if currentPoints.length > 1}
                     <text text-anchor="left" dy="-5" font-size="36" fill="blue">
-                        <textPath href="#sphere" startOffset="60%">
+                        <textPath href="#sphere" startOffset="20%">
                             {currentPoints[currentPoints.length - 1]?.name} — {currentPoints[
                                 currentPoints.length - 1
                             ]?.year}
@@ -261,19 +264,12 @@
                     </g>
                 </g>
             </svg>
-        </div>
-        <Archive {points} {highlighted} on:updateId={handleUpdateId} />
-    {:else}
-        <p>Loading...</p>
-    {/if}
+        {/if}
+    </div>
+    <Archive {points} {highlighted} on:updateId={handleUpdateId} />
 </article>
 
 <style>
-    p {
-        color: black;
-        margin: 0;
-    }
-
     article {
         display: flex;
         width: 100%;

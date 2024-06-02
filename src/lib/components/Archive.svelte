@@ -70,7 +70,10 @@
     }
 
     input {
-        width: 100%;
+        width: 90%;
+        border: none;
         outline: none;
+        margin-bottom: 10px;
+        color: blue;
     }
 </style>
