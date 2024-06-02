@@ -62,7 +62,7 @@
         overflow: scroll;
         color: black;
         background-color: lightgray;
-        padding: 5px;
+        padding: 5px 5px 50px;
     }
 
     h2 {
