@@ -1,5 +1,5 @@
 <article>
-    <h2>Background</h2>
+    <h2>Colophon</h2>
     <p>
         Since space exploration began in the 1950s, the various technologies
         used for launching and carrying out missions have left their mark,
@@ -13,11 +13,10 @@
         environment often goes unnoticed. Media portraits deal with the
         phenomenon of falling debris mainly in the context of the mysterious <em
             >Point Nemo</em
-        >
-        , also known as the <em>spaceship graveyard</em>. However, the romantic
-        and an- tropomorphic concept of technology finding its final resting
-        place is misleading and ignores the reality of a chaotic waste dump 4
-        embedded in a complex legal dilemma around environmental damage.
+        >, also known as the <em>spaceship graveyard</em>. However, the romantic
+        and antropomorphic concept of technology finding its final resting place
+        is misleading and ignores the reality of a chaotic waste dump 4 embedded
+        in a complex legal dilemma around environmental damage.
     </p>
     <h2>Map</h2>
     <p>
@@ -46,10 +45,11 @@
         <li>GEBCO (General bathymetric chart of the oceans)</li>
         <li>Marineregions.org</li>
         <li>NASA ODPO (Orbital Debris Programme Office)</li>
+        <li>NASA Distance to the Nearest Coast</li>
         <li>NOAA (National Oceanic and Atmospheric Administration)</li>
         <li>NORAD (National Oceanic and Atmospheric Administration)</li>
         <li>CelesTrak</li>
-        <li>USSTRATCOM (United States Space Surveillance Network)</li>
+        <li>USSTRATCOM (United States Strategic Command)</li>
     </ol>
 </article>
 
