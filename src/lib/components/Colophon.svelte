@@ -55,7 +55,7 @@
 
 <style>
     article {
-        font-size: 14px;
+        font-size: 12px;
         width: 10vw;
         min-width: 200px;
         /* height: 100vh; */
@@ -66,7 +66,7 @@
     }
 
     h2 {
-        font-size: 18px;
+        font-size: 14px;
         font-weight: 400;
         margin: 5px;
         padding: 0;
@@ -74,7 +74,8 @@
 
     ol {
         margin: 5px;
-        padding-left: 15px;
+        padding-left: 25px;
+        font-size: 10px;
     }
 
     p {

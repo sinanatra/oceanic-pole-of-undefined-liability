@@ -125,10 +125,8 @@
     };
 </script>
 
-<section>
-    <TopBar {currentPoint} />
-    <ProgressBar {index} {points} on:updateIndex={handleUpdateIndex} />
-</section>
+<TopBar {currentPoint} />
+<ProgressBar {index} {points} on:updateIndex={handleUpdateIndex} />
 <article>
     <div bind:clientWidth={width} bind:clientHeight={height}>
         {#if currentPoints.length > 0}
@@ -278,7 +276,7 @@
     .bg {
         fill: #e2e9ff;
     }
-    
+
     .world {
         stroke-width: 0.2;
         fill: rgb(254, 255, 245);

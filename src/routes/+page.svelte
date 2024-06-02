@@ -34,7 +34,7 @@
         padding: 0;
         background-color: rgb(243, 243, 243);
         text-rendering: optimizeLegibility;
-        font-family: sans-serif;
+        font-family: "mono", sans-serif;
     }
 
     p {
@@ -46,5 +46,16 @@
     article {
         color: white;
         overflow: hidden;
+    }
+
+    @font-face {
+        font-family: "mono";
+        src: url("./fonts/SpaceMono-Regular.ttf") format("truetype");
+        font-style: normal;
+    }
+    @font-face {
+        font-family: "mono";
+        src: url("./fonts/SpaceMono-Italic.ttf") format("truetype");
+        font-style: italic;
     }
 </style>
