@@ -32,7 +32,7 @@
     :global(body) {
         margin: 0;
         padding: 0;
-        background-color: rgb(227, 227, 227);
+        background-color: rgb(243, 243, 243);
         text-rendering: optimizeLegibility;
         font-family: sans-serif;
     }
