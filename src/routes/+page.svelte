@@ -35,6 +35,7 @@
         background-color: rgb(243, 243, 243);
         text-rendering: optimizeLegibility;
         font-family: "mono", sans-serif;
+        overflow: hidden;
     }
 
     p {

@@ -265,7 +265,7 @@
     article {
         display: flex;
         width: 100%;
-        height: calc(100vh - 30px);
+        height: 100vh;
     }
 
     article div {

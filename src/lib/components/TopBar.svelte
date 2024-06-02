@@ -28,13 +28,14 @@
     }
 
     .satellite-info {
-        font-size: 12px;
+        font-size: 10px;
     }
     .satellite-info span {
         margin-right: 20px;
     }
 
     .description p {
-        margin: 0;
+        margin: 5px;
+        font-style: italic;
     }
 </style>
