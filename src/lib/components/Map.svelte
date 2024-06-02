@@ -10,8 +10,6 @@
     let height;
     export let data;
 
-    $: console.log(width);
-
     let PointNemo = [
         { lon: -126.3622344, lat: -72.9741938, name: "Maher Island" },
         {
@@ -36,7 +34,7 @@
     onMount(async () => {
         const projection = geoAzimuthalEquidistant()
             .rotate([123, 48])
-            .scale(300)
+            .scale(260)
             .precision(1)
             .clipAngle(100)
             .translate([width / 2, height / 2]);

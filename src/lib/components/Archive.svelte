@@ -1,4 +1,5 @@
 <script>
+    import Colophon from "@components/Colophon.svelte";
     export let points;
     export let highlighted;
     import { createEventDispatcher } from "svelte";
@@ -42,6 +43,7 @@
         </p>
     {/each}
 </article>
+<Colophon />
 
 <style>
     article {
