@@ -31,17 +31,19 @@
 <article>
     <input type="text" placeholder="Search..." bind:value={searchTerm} />
 
-    {#each filteredPoints as d, index}
-        <p
-            class:gray-background={index % 2 === 1}
-            class:highlight={highlighted &&
-                highlighted.name === d.name &&
-                highlighted.year == d.year}
-            on:click={() => handleClick(index)}
-        >
-            {d.name}, {d.year}
-        </p>
-    {/each}
+    <div>
+        {#each filteredPoints as d, index}
+            <p
+                class:gray-background={index % 2 === 1}
+                class:highlight={highlighted &&
+                    highlighted.name === d.name &&
+                    highlighted.year == d.year}
+                on:click={() => handleClick(index)}
+            >
+                {d.name}, {d.year}
+            </p>
+        {/each}
+    </div>
 </article>
 <Colophon />
 
@@ -71,10 +73,15 @@
     }
 
     input {
-        width: 90%;
+        width: 100%;
         border: none;
         outline: none;
-        margin-bottom: 10px;
         color: blue;
+        position: sticky;
+        top: 0;
+    }
+
+    div {
+        margin-top: 10px;
     }
 </style>
