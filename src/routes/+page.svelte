@@ -15,7 +15,7 @@
 
         data = rawData.map((d) => ({
             ...d,
-            rcs: 1 + ((d.rcs - minRcs) * 19) / (maxRcs - minRcs),
+            rcs: 1 + ((d.rcs - minRcs) * 9) / (maxRcs - minRcs),
         }));
     });
 </script>

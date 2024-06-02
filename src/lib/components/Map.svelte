@@ -326,8 +326,8 @@
     }
 
     .old {
-        fill: rgb(193, 212, 212);
-        stroke: rgb(193, 212, 212);
+        fill: #c1c8d4;
+        stroke: #c1c8d4;
         stroke-width: 0.1;
     }
 
