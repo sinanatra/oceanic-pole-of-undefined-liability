@@ -141,7 +141,7 @@
                 </defs>
                 {#if currentPoints.length > 1}
                     <text text-anchor="left" dy="-5" font-size="36" fill="blue">
-                        <textPath href="#sphere" startOffset="20%">
+                        <textPath href="#sphere" startOffset="15%">
                             {currentPoints[currentPoints.length - 1]?.name} — {currentPoints[
                                 currentPoints.length - 1
                             ]?.year}
@@ -154,7 +154,7 @@
                         cx={width / 2}
                         cy={height / 2}
                         r={width * 2}
-                        fill="#eeffff"
+                        class="bg"
                     />
 
                     <!-- Marine Borders -->
@@ -165,7 +165,7 @@
                     </g>
 
                     <!-- World features -->
-                    <g class="world" fill="white" stroke="none">
+                    <g class="world" stroke="none">
                         {#each world as feature, i}
                             <path d={path(feature)} class="country" />
                         {/each}
@@ -275,9 +275,13 @@
         height: 100%;
     }
 
+    .bg {
+        fill: #e2e9ff;
+    }
+    
     .world {
         stroke-width: 0.2;
-        fill: #fcfcfc !important;
+        fill: rgb(254, 255, 245);
     }
 
     .marine {
