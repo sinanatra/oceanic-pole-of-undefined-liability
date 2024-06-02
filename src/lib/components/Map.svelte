@@ -4,20 +4,20 @@
     import { geoPath, geoAzimuthalEquidistant, geoGraticule } from "d3-geo";
     import TopBar from "@components/TopBar.svelte";
     import ProgressBar from "@components/ProgressBar.svelte";
+    import Archive from "@components/Archive.svelte";
 
     let width = window.innerWidth;
-    let height = window.innerHeight;
+    let height = window.innerHeight - 10;
+    export let data;
 
     const projection = geoAzimuthalEquidistant()
         .rotate([123, 48])
-        .scale(250)
+        .scale(230)
         .precision(1)
-        .clipAngle(95.3)
-        .translate([width / 2, height / 2]);
+        .clipAngle(100)
+        .translate([width / 3, height / 2]);
 
     const path = geoPath().projection(projection);
-
-    export let data;
 
     let PointNemo = [
         { lon: -126.3622344, lat: -72.9741938, name: "Maher Island" },
@@ -110,127 +110,181 @@
         index = newIndex.detail;
         currentPoints = points.slice(0, index + 1);
         currentPoint = currentPoints[currentPoints.length - 1];
+        highlighted = points[index + 1];
+    };
+
+    $: highlighted = currentPoints.slice(-1)[0];
+
+    const handleUpdateId = (datum) => {
+        index = points.findIndex(
+            (d) => d.name == datum.detail.name && d.year == datum.detail.year,
+        );
+
+        currentPoints = points.slice(0, index + 1);
     };
 </script>
 
-<TopBar {currentPoint} />
-<ProgressBar {index} {points} on:updateIndex={handleUpdateIndex} />
+<section>
+    <TopBar {currentPoint} />
+    <ProgressBar {index} {points} on:updateIndex={handleUpdateIndex} />
+</section>
 
-<svg viewBox="0 0 {width} {height}" style="width: 100%; height: 100vh;">
-    <defs>
-        <path id="sphere" d={path({ type: "Sphere" })} />
-        <clipPath class="clip" id="clip">
-            <use href="#sphere" />
-        </clipPath>
-    </defs>
+<article>
     {#if currentPoints.length > 1}
-        <text text-anchor="left" dy="-5" fill="blue">
-            <textPath href="#sphere" startOffset="60%">
-                {currentPoints[currentPoints.length - 1]?.name} — {currentPoints[
-                    currentPoints.length - 1
-                ]?.year}
-            </textPath>
-        </text>
-    {/if}
-
-    <g clip-path="url(#clip)">
-        <circle cx={width / 2} cy={height / 2} r={width} fill="#eeffff" />
-
-        <!-- Marine Borders -->
-        <g class="marine" fill="#e9f4ff" stroke="blue">
-            {#each marineBorders as feature, i}
-                <path d={path(feature)} class="marineBorders" />
-            {/each}
-        </g>
-
-        <!-- World features -->
-        <g class="world" fill="white" stroke="none">
-            {#each world as feature, i}
-                <path d={path(feature)} class="country" />
-            {/each}
-        </g>
-
-        <!-- contour -->
-        <g class="contour" fill="none" stroke="none">
-            {#each contour as feature, i}
-                <path d={path(feature)} class="contour" />
-            {/each}
-        </g>
-
-        <!-- Lines connecting points -->
-        <g>
-            {#if currentPoints.length > 1}
-                {#each currentPoints as point, i}
-                    {#if i > 0 && currentPoints[i].name === currentPoints[i - 1].name}
-                        <line
-                            x1={currentPoints[i - 1].cx}
-                            y1={currentPoints[i - 1].cy}
-                            x2={point.cx}
-                            y2={point.cy}
-                            class={i === currentPoints.length - 1
-                                ? "line highlite"
-                                : "line old"}
-                        />
-                    {/if}
-                {/each}
-            {/if}
-        </g>
-
-        <!-- Points -->
-        <g>
-            {#each currentPoints as { cx, cy, name, r }, i}
-                {#if i > 0 && currentPoints[i].name === currentPoints[i - 1].name}
-                    <circle
-                        {cx}
-                        {cy}
-                        {r}
-                        fill="blue"
-                        class={i === currentPoints.length - 1
-                            ? "dot highlite"
-                            : "dot old"}
-                    />
-                {:else if i === currentPoints.length - 1}
-                    <circle {cx} {cy} {r} fill="blue" class="highlite" />
-                {/if}
-
-                <!-- Display satellite name close to the highlighted dot -->
-                {#if i === currentPoints.length - 1}
-                    <text
-                        x={r + cx + 8}
-                        y={cy + 2}
-                        class="satellite-name"
-                        font-size="8"
-                    >
-                        {name}
+        <div bind:clientWidth={width} bind:clientHeight={height}>
+            <svg
+                viewBox="0 0 {width} {height}"
+                style="width: 100%; height: 100vh;"
+            >
+                <defs>
+                    <path id="sphere" d={path({ type: "Sphere" })} />
+                    <clipPath class="clip" id="clip">
+                        <use href="#sphere" />
+                    </clipPath>
+                </defs>
+                {#if currentPoints.length > 1}
+                    <text text-anchor="left" dy="-5" font-size="36" fill="blue">
+                        <textPath href="#sphere" startOffset="60%">
+                            {currentPoints[currentPoints.length - 1]?.name} — {currentPoints[
+                                currentPoints.length - 1
+                            ]?.year}
+                        </textPath>
                     </text>
                 {/if}
-            {/each}
-        </g>
 
-        <!-- Graticule -->
-        <!-- <g>
+                <g clip-path="url(#clip)">
+                    <circle
+                        cx={width / 2}
+                        cy={height / 2}
+                        r={width}
+                        fill="#eeffff"
+                    />
+
+                    <!-- Marine Borders -->
+                    <g class="marine" fill="#e9f4ff" stroke="blue">
+                        {#each marineBorders as feature, i}
+                            <path d={path(feature)} class="marineBorders" />
+                        {/each}
+                    </g>
+
+                    <!-- World features -->
+                    <g class="world" fill="white" stroke="none">
+                        {#each world as feature, i}
+                            <path d={path(feature)} class="country" />
+                        {/each}
+                    </g>
+
+                    <!-- contour -->
+                    <g class="contour" fill="none" stroke="none">
+                        {#each contour as feature, i}
+                            <path d={path(feature)} class="contour" />
+                        {/each}
+                    </g>
+
+                    <!-- Lines connecting points -->
+                    <g>
+                        {#if currentPoints.length > 1}
+                            {#each currentPoints as point, i}
+                                {#if i > 0 && currentPoints[i].name === currentPoints[i - 1].name}
+                                    <line
+                                        x1={currentPoints[i - 1].cx}
+                                        y1={currentPoints[i - 1].cy}
+                                        x2={point.cx}
+                                        y2={point.cy}
+                                        class={i === currentPoints.length - 1
+                                            ? "line highlite"
+                                            : "line old"}
+                                    />
+                                {/if}
+                            {/each}
+                        {/if}
+                    </g>
+
+                    <!-- Points -->
+                    <g>
+                        {#each currentPoints as { cx, cy, name, r }, i}
+                            {#if i > 0 && currentPoints[i].name === currentPoints[i - 1].name}
+                                <circle
+                                    {cx}
+                                    {cy}
+                                    {r}
+                                    fill="blue"
+                                    class={i === currentPoints.length - 1
+                                        ? "dot highlite"
+                                        : "dot old"}
+                                />
+                            {:else if i === currentPoints.length - 1}
+                                <circle
+                                    {cx}
+                                    {cy}
+                                    {r}
+                                    fill="blue"
+                                    class="highlite"
+                                />
+                            {/if}
+
+                            <!-- Display satellite name close to the highlighted dot -->
+                            {#if i === currentPoints.length - 1}
+                                <text
+                                    x={r + cx + 8}
+                                    y={cy + 2}
+                                    class="satellite-name"
+                                    font-size="8"
+                                >
+                                    {name}
+                                </text>
+                            {/if}
+                        {/each}
+                    </g>
+
+                    <!-- Graticule -->
+                    <!-- <g>
             <path class="graticule" fill="none" d={path(geoGraticule().step([0, 10]))} />
         </g> -->
 
-        <!-- Spoua -->
-        <g class="spoua">
-            {#each spoua as feature, i}
-                <path d={path(feature)} class="spoua" />
-            {/each}
-        </g>
+                    <!-- Spoua -->
+                    <g class="spoua">
+                        {#each spoua as feature, i}
+                            <path d={path(feature)} class="spoua" />
+                        {/each}
+                    </g>
 
-        <g class="nemo">
-            {#each PointNemo as { cx, cy, name }}
-                {#if cx && cy}
-                    <circle {cx} {cy} r={1} fill="black" />
-                    <text x={cx + 4} y={cy + 2} font-size="8">{name}</text>
-                {/if}
-            {/each}
-        </g>
-    </g>
-</svg>
+                    <g class="nemo">
+                        {#each PointNemo as { cx, cy, name }}
+                            {#if cx && cy}
+                                <circle {cx} {cy} r={1} fill="black" />
+                                <text x={cx + 4} y={cy + 2} font-size="8"
+                                    >{name}</text
+                                >
+                            {/if}
+                        {/each}
+                    </g>
+                </g>
+            </svg>
+        </div>
+        <Archive {points} {highlighted} on:updateId={handleUpdateId} />
+    {:else}
+        <p>Loading...</p>
+    {/if}
+</article>
 
 <style>
+    p {
+        color: black;
+        margin: 0;
+    }
+
+    article {
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+
+    article div {
+        width: 100%;
+        height: 100%;
+    }
+
     .world {
         stroke-width: 0.2;
         fill: #fcfcfc !important;

@@ -26,6 +26,9 @@
         font-size: 14px;
     }
 
+    .satellite-info {
+        font-size: 12px;
+    }
     .satellite-info span {
         margin-right: 20px;
     }

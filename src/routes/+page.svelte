@@ -44,7 +44,8 @@
     }
 
     article {
-        height: 100vh;
         color: white;
+        overflow: hidden;
+        height: 99vh;
     }
 </style>
