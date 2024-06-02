@@ -18,7 +18,6 @@
 <style>
     .top-bar {
         width: 100%;
-        height: 20px;
         background-color: black;
         color: white;
         display: flex;
