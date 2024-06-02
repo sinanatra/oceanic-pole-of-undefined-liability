@@ -22,7 +22,7 @@
         color: white;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: baseline;
         font-size: 14px;
     }
 

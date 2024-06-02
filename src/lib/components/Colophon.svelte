@@ -81,4 +81,10 @@
     p {
         margin: 5px;
     }
+
+    @media screen and (max-width: 600px) {
+        article {
+            display: none;
+        }
+    }
 </style>

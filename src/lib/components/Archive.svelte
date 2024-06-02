@@ -51,7 +51,7 @@
     article {
         font-size: 10px;
         width: 30vw;
-        min-width: 250px;
+        min-width: 200px;
         overflow: scroll;
         color: black;
         background-color: white;
