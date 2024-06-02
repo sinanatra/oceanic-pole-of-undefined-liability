@@ -157,7 +157,7 @@
                     <circle
                         cx={width / 2}
                         cy={height / 2}
-                        r={width}
+                        r={width*2}
                         fill="#eeffff"
                     />
 
