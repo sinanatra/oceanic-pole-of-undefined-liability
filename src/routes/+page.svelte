@@ -51,12 +51,12 @@
 
     @font-face {
         font-family: "mono";
-        src: url("./fonts/SpaceMono-Regular.ttf") format("truetype");
+        src: url("/fonts/SpaceMono-Regular.ttf") format("truetype");
         font-style: normal;
     }
     @font-face {
         font-family: "mono";
-        src: url("./fonts/SpaceMono-Italic.ttf") format("truetype");
+        src: url("/fonts/SpaceMono-Italic.ttf") format("truetype");
         font-style: italic;
     }
 </style>
