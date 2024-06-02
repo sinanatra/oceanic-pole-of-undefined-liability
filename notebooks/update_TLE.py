@@ -6,7 +6,7 @@ import codecs
 import time
 import os
 
-st = SpaceTrackClient('hello@giacomonanni.info', '8pKSdTg39NJhqWU')
+st = SpaceTrackClient('username', 'password')
 
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
