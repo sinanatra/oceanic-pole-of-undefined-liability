@@ -131,7 +131,7 @@
 </section>
 <article>
     <div bind:clientWidth={width} bind:clientHeight={height}>
-        {#if currentPoints.length > 1}
+        {#if currentPoints.length > 0}
             <svg viewBox="0 0 {width} {height}">
                 <defs>
                     <path id="sphere" d={path({ type: "Sphere" })} />
@@ -139,7 +139,7 @@
                         <use href="#sphere" />
                     </clipPath>
                 </defs>
-                {#if currentPoints.length > 1}
+                {#if currentPoints.length > 0}
                     <text text-anchor="left" dy="-5" font-size="36" fill="blue">
                         <textPath href="#sphere" startOffset="15%">
                             {currentPoints[currentPoints.length - 1]?.name} — {currentPoints[
@@ -180,7 +180,7 @@
 
                     <!-- Lines connecting points -->
                     <g>
-                        {#if currentPoints.length > 1}
+                        {#if currentPoints.length > 0}
                             {#each currentPoints as point, i}
                                 {#if i > 0 && currentPoints[i].name === currentPoints[i - 1].name}
                                     <line
