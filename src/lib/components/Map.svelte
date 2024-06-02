@@ -100,7 +100,7 @@
             if (index < points.length) {
                 currentPoints = [...currentPoints, points[index]];
                 currentPoint = points[index];
-                index += 1;
+                index = (index + 1) % points.length;
             } else {
                 clearInterval(interval);
             }
