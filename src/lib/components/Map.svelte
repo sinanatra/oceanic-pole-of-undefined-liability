@@ -129,14 +129,10 @@
     <TopBar {currentPoint} />
     <ProgressBar {index} {points} on:updateIndex={handleUpdateIndex} />
 </section>
-
 <article>
     <div bind:clientWidth={width} bind:clientHeight={height}>
         {#if currentPoints.length > 1}
-            <svg
-                viewBox="0 0 {width} {height}"
-                style="width: 100%; height: 100vh;"
-            >
+            <svg viewBox="0 0 {width} {height}">
                 <defs>
                     <path id="sphere" d={path({ type: "Sphere" })} />
                     <clipPath class="clip" id="clip">
@@ -157,7 +153,7 @@
                     <circle
                         cx={width / 2}
                         cy={height / 2}
-                        r={width*2}
+                        r={width * 2}
                         fill="#eeffff"
                     />
 
@@ -271,7 +267,7 @@
     article {
         display: flex;
         width: 100%;
-        height: 100%;
+        height: calc(100vh - 30px);
     }
 
     article div {

@@ -50,7 +50,6 @@
         font-size: 10px;
         width: 30vw;
         min-width: 250px;
-        height: 100vh;
         overflow: scroll;
         color: black;
         background-color: white;

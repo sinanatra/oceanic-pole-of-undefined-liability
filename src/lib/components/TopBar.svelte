@@ -17,9 +17,10 @@
 
 <style>
     .top-bar {
+        width: 100%;
+        height: 20px;
         background-color: black;
         color: white;
-        width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
