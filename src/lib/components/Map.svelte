@@ -337,11 +337,12 @@
     .old {
         fill: #c1c8d4;
         stroke: #c1c8d4;
-        stroke-width: 0.1;
+        stroke-width: 0.2;
     }
 
     .debris {
         stroke: none;
+        fill: #c1c8d421;
     }
 
     .hide {
