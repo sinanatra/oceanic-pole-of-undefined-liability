@@ -13,10 +13,15 @@
         const minRcs = Math.min(...rawData.map((d) => d.rcs));
         const maxRcs = Math.max(...rawData.map((d) => d.rcs));
 
-        data = rawData.map((d) => ({
-            ...d,
-            rcs: 1 + ((d.rcs - minRcs) * 9) / (maxRcs - minRcs),
-        }));
+        data = rawData
+            .sort(
+                (a, b) =>
+                    new Date(a.satellite_decay) - new Date(b.satellite_decay),
+            )
+            .map((d) => ({
+                ...d,
+                rcs: 1 + ((d.rcs - minRcs) * 9) / (maxRcs - minRcs),
+            }));
     });
 </script>
 
