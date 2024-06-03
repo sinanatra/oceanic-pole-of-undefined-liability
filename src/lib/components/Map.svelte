@@ -343,7 +343,7 @@
 
     .debris {
         /* /* stroke: none; */
-        fill: #c1c8d421; */
+        fill: #c1c8d421;
     }
 
     .hide {
