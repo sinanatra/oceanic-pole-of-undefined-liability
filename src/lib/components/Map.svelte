@@ -198,9 +198,11 @@
                                         y1={currentPoints[i - 1].cy}
                                         x2={point.cx}
                                         y2={point.cy}
-                                        class={i === currentPoints.length - 1
-                                            ? "line highlite"
-                                            : "line old"}
+                                        class:highlite={i ===
+                                            currentPoints.length - 1}
+                                        class:old={i !==
+                                            currentPoints.length - 1}
+                                        class:debris={name.includes("DEB")}
                                     />
                                 {/if}
                             {/each}
@@ -216,9 +218,10 @@
                                     {cy}
                                     {r}
                                     fill="blue"
-                                    class={i === currentPoints.length - 1
-                                        ? "dot highlite"
-                                        : "dot old"}
+                                    class:highlite={i ===
+                                        currentPoints.length - 1}
+                                    class:old={i !== currentPoints.length - 1}
+                                    class:debris={name.includes("DEB")}
                                 />
                             {:else if i === currentPoints.length - 1}
                                 <circle
@@ -227,6 +230,7 @@
                                     {r}
                                     fill="blue"
                                     class="highlite"
+                                    class:debris={name.includes("DEB")}
                                 />
                             {/if}
 
@@ -334,6 +338,10 @@
         fill: #c1c8d4;
         stroke: #c1c8d4;
         stroke-width: 0.1;
+    }
+
+    .debris {
+        stroke: none;
     }
 
     .hide {
