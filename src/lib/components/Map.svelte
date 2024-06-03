@@ -1,14 +1,16 @@
 <script>
     import { onMount } from "svelte";
     import * as topojson from "topojson-client";
-    import { geoPath, geoAzimuthalEquidistant, geoGraticule } from "d3-geo";
+    import { geoPath, geoAzimuthalEquidistant } from "d3-geo";
     import TopBar from "@components/TopBar.svelte";
     import ProgressBar from "@components/ProgressBar.svelte";
     import Archive from "@components/Archive.svelte";
 
-    let width;
-    let height;
     export let data;
+    let container;
+    let width = 0;
+    let height = 0;
+    let projection;
 
     let PointNemo = [
         { lon: -126.3622344, lat: -72.9741938, name: "Maher Island" },
@@ -32,14 +34,7 @@
     let path;
 
     onMount(async () => {
-        const projection = geoAzimuthalEquidistant()
-            .rotate([123, 48])
-            .scale(260)
-            .precision(1)
-            .clipAngle(100)
-            .translate([width / 2, height / 2]);
-
-        path = geoPath().projection(projection);
+        updateDimensions();
 
         try {
             const worldData = await fetch("world.json").then((d) => d.json());
@@ -90,7 +85,24 @@
         } catch (error) {
             console.error("Error loading or processing data:", error);
         }
+
+        window.addEventListener("resize", updateDimensions);
     });
+
+    function updateDimensions() {
+        if (container) {
+            width = container.clientWidth;
+            height = container.clientHeight;
+            projection = geoAzimuthalEquidistant()
+                .rotate([123, 48])
+                .scale(260)
+                .precision(1)
+                .clipAngle(100)
+                .translate([width / 2, height / 2]);
+
+            path = geoPath().projection(projection);
+        }
+    }
 
     const startAddingPoints = () => {
         if (interval) clearInterval(interval);
@@ -128,7 +140,7 @@
 <TopBar {currentPoint} />
 <ProgressBar {index} {points} on:updateIndex={handleUpdateIndex} />
 <article>
-    <div bind:clientWidth={width} bind:clientHeight={height}>
+    <div bind:this={container}>
         {#if currentPoints.length > 0}
             <svg viewBox="0 0 {width} {height}">
                 <defs>
@@ -231,11 +243,6 @@
                             {/if}
                         {/each}
                     </g>
-
-                    <!-- Graticule -->
-                    <!-- <g>
-            <path class="graticule" fill="none" d={path(geoGraticule().step([0, 10]))} />
-        </g> -->
 
                     <!-- Spoua -->
                     <g class="spoua">
