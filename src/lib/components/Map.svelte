@@ -212,7 +212,17 @@
                     <!-- Points -->
                     <g>
                         {#each currentPoints as { cx, cy, name, r }, i}
-                            {#if i > 0 && currentPoints[i].name === currentPoints[i - 1].name}
+                            {#if i === currentPoints.length - 1}
+                                <circle
+                                    {cx}
+                                    {cy}
+                                    {r}
+                                    fill="blue"
+                                    class="highlite"
+                                    class:debris={name.includes("DEB")}
+                                />
+
+                                <!-- {:else if i > 0 && currentPoints[i].name === currentPoints[i - 1].name}
                                 <circle
                                     {cx}
                                     {cy}
@@ -222,16 +232,7 @@
                                         currentPoints.length - 1}
                                     class:old={i !== currentPoints.length - 1}
                                     class:debris={name.includes("DEB")}
-                                />
-                            {:else if i === currentPoints.length - 1}
-                                <circle
-                                    {cx}
-                                    {cy}
-                                    {r}
-                                    fill="blue"
-                                    class="highlite"
-                                    class:debris={name.includes("DEB")}
-                                />
+                                /> -->
                             {/if}
 
                             <!-- Display satellite name close to the highlighted dot -->
