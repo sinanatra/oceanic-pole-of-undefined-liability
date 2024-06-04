@@ -202,7 +202,6 @@
                                             currentPoints.length - 1}
                                         class:old={i !==
                                             currentPoints.length - 1}
-                                        class:debris={name.includes("DEB")}
                                     />
                                 {/if}
                             {/each}
@@ -341,8 +340,8 @@
     }
 
     .debris {
-        /* stroke: none; */
-        fill: #c1c8d421;
+        stroke: none;
+        fill: none;
     }
 
     .hide {
