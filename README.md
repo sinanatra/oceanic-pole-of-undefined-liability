@@ -8,6 +8,7 @@ By geolocating their predicted reentry, the resulting coordinates are juxtaposed
 
 While the first shows the conflicting intersection with the UN Law of the Sea and a possible breach thereof, the latter emphasises the constant risk of impact that re-entering spacecraft pose to shipping routes within the South Pacific Ocean.
           
+<img width="1486" alt="image" src="https://github.com/sinanatra/oceanic-pole-of-undefined-liability/assets/20107875/c06f95e9-4173-4ecc-b22b-103717fec7e4">
  
 ## Developing
 
