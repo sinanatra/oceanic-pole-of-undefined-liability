@@ -221,8 +221,7 @@
                                     class="highlite"
                                     class:debris={name.includes("DEB")}
                                 />
-
-                                <!-- {:else if i > 0 && currentPoints[i].name === currentPoints[i - 1].name}
+                            {:else if i > 0 && currentPoints[i].name === currentPoints[i - 1].name}
                                 <circle
                                     {cx}
                                     {cy}
@@ -232,7 +231,7 @@
                                         currentPoints.length - 1}
                                     class:old={i !== currentPoints.length - 1}
                                     class:debris={name.includes("DEB")}
-                                /> -->
+                                />
                             {/if}
 
                             <!-- Display satellite name close to the highlighted dot -->
@@ -342,7 +341,7 @@
     }
 
     .debris {
-        /* /* stroke: none; */
+        /* stroke: none; */
         fill: #c1c8d421;
     }
 
