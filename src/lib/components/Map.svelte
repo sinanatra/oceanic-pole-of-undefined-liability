@@ -248,11 +248,11 @@
                     </g>
 
                     <!-- Spoua -->
-                    <g class="spoua">
+                    <!-- <g class="spoua">
                         {#each spoua as feature, i}
                             <path d={path(feature)} class="spoua" />
                         {/each}
-                    </g>
+                    </g> -->
 
                     <g class="nemo">
                         {#each PointNemo as { cx, cy, name }}
@@ -306,9 +306,9 @@
     }
 
     .spoua {
-        stroke-width: 0.2;
-        fill: #c5e6e6;
-        opacity: 0.6;
+        stroke-width: 0.4;
+        fill: rgb(254, 255, 245);
+        opacity: 0.4;
         stroke-dasharray: 1px 1px;
     }
 
