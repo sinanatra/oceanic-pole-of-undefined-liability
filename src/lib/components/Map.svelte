@@ -35,6 +35,13 @@
     let interval;
     let path;
 
+    function filterDataWithinProjection(rawData, projection) {
+        return rawData.filter((d) => {
+            const [x, y] = projection([d.lon, d.lat]);
+            return x >= 0 && x <= width && y >= 0 && y <= height;
+        });
+    }
+
     onMount(async () => {
         updateDimensions();
 
@@ -86,7 +93,10 @@
 
             path = geoPath().projection(projection);
 
-            points = data
+            // filter the satellites within the projection
+            const filteredData = filterDataWithinProjection(data, projection);
+
+            points = filteredData
                 .map((d) => {
                     const [cx, cy] = projection([d.lon, d.lat]);
                     return {
