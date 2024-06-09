@@ -22,11 +22,13 @@
         { lon: -124.787888, lat: -24.6807263, name: "Ducie Island" },
         { lon: -123.3933333, lat: -48.8766667, name: "Point Nemo" },
     ];
+
     let world = [];
     let marineBorders = [];
     let contour = [];
     let spoua = [];
     let points = [];
+    let nemoPoints = [];
     let currentPoints = [];
     let currentPoint = null;
     let index = 0;
@@ -63,24 +65,6 @@
                 spouaData.objects.spoua,
             ).features;
 
-            points = data
-                .map((d) => {
-                    const [cx, cy] = projection([d.lon, d.lat]);
-                    return {
-                        cx,
-                        cy,
-                        name: d.satellite_name,
-                        year: d.satellite_decay,
-                        r: d.rcs,
-                    };
-                })
-                .filter((point) => !isNaN(point.cx) && !isNaN(point.cy));
-
-            PointNemo = PointNemo.map((d) => {
-                const [cx, cy] = projection([d.lon, d.lat]);
-                return { cx, cy, name: d.name };
-            });
-
             startAddingPoints();
         } catch (error) {
             console.error("Error loading or processing data:", error);
@@ -101,6 +85,26 @@
                 .translate([width / 2, height / 2]);
 
             path = geoPath().projection(projection);
+
+            points = data
+                .map((d) => {
+                    const [cx, cy] = projection([d.lon, d.lat]);
+                    return {
+                        cx,
+                        cy,
+                        name: d.satellite_name,
+                        year: d.satellite_decay,
+                        r: d.rcs,
+                    };
+                })
+                .filter((point) => !isNaN(point.cx) && !isNaN(point.cy));
+
+            nemoPoints = PointNemo.map((d) => {
+                const [cx, cy] = projection([d.lon, d.lat]);
+                return { cx, cy, name: d.name };
+            });
+
+            currentPoints = points.slice(0, index + 1);
         }
     }
 
@@ -255,7 +259,7 @@
                     </g> -->
 
                     <g class="nemo">
-                        {#each PointNemo as { cx, cy, name }}
+                        {#each nemoPoints as { cx, cy, name }}
                             {#if cx && cy}
                                 <circle {cx} {cy} r={1} fill="black" />
                                 <text x={cx + 4} y={cy + 2} font-size="8"
