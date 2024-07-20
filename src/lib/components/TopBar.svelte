@@ -35,6 +35,6 @@
 
     .description p {
         margin: 5px;
-        font-style: italic;
+        /* font-style: italic; */
     }
 </style>
