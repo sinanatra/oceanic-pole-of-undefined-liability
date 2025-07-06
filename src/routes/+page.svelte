@@ -1,67 +1,68 @@
 <script>
-    import { onMount } from "svelte";
-    import Map from "@components/Map.svelte";
+  import { onMount } from "svelte";
+  import Map from "@components/Map.svelte";
 
-    let data = [];
-    let width, height;
+  let data = [];
+  let width, height;
 
-    onMount(async () => {
-        const response = await fetch("data.json");
-        const rawData = await response.json();
+  onMount(async () => {
+    const response = await fetch("data.json");
+    const rawData = await response.json();
 
-        // min max rcs
-        const minRcs = Math.min(...rawData.map((d) => d.rcs));
-        const maxRcs = Math.max(...rawData.map((d) => d.rcs));
+    // min max rcs
+    const minRcs = Math.min(...rawData.map((d) => d.rcs));
+    const maxRcs = Math.max(...rawData.map((d) => d.rcs));
 
-        data = rawData
-            .sort(
-                (a, b) =>
-                    new Date(a.satellite_decay) - new Date(b.satellite_decay),
-            )
-            .map((d) => ({
-                ...d,
-                rcs: 1 + ((d.rcs - minRcs) * 9) / (maxRcs - minRcs),
-            }));
-    });
+    data = rawData
+      .sort((a, b) => new Date(a.satellite_decay) - new Date(b.satellite_decay))
+      .map((d) => ({
+        ...d,
+        rcs: 1 + ((d.rcs - minRcs) * 9) / (maxRcs - minRcs),
+      }));
+  });
 </script>
 
 {#if data.length === 0}
-    <p>Loading...</p>
+  <p class="load">Loading...</p>
 {:else}
-    <article bind:clientWidth={width} bind:clientHeight={height}>
-        <Map {data} />
-    </article>
+  <article bind:clientWidth={width} bind:clientHeight={height}>
+    <Map {data} />
+  </article>
 {/if}
 
 <style>
-    :global(body) {
-        margin: 0;
-        padding: 0;
-        background-color: rgb(243, 243, 243);
-        text-rendering: optimizeLegibility;
-        font-family: "mono", sans-serif;
-        overflow: hidden;
-    }
+  :global(body) {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(243, 243, 243);
+    text-rendering: optimizeLegibility;
+    font-family: "mono", sans-serif;
+    overflow: hidden;
+  }
 
-    p {
-        color: black;
-        padding: 0;
-        margin: 0;
-    }
+  .load {
+    padding: 10px;
+  }
 
-    article {
-        color: white;
-        overflow: hidden;
-    }
+  p {
+    color: black;
+    padding: 0;
+    margin: 0;
+  }
 
-    @font-face {
-        font-family: "mono";
-        src: url("/fonts/SpaceMono-Regular.ttf") format("truetype");
-        font-style: normal;
-    }
-    @font-face {
-        font-family: "mono";
-        src: url("/fonts/SpaceMono-Italic.ttf") format("truetype");
-        font-style: italic;
-    }
+  article {
+    color: white;
+    overflow: hidden;
+  }
+
+  @font-face {
+    font-family: "mono";
+    src: url("/fonts/SpaceMono-Regular.ttf") format("truetype");
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "mono";
+    src: url("/fonts/SpaceMono-Italic.ttf") format("truetype");
+    font-style: italic;
+  }
 </style>

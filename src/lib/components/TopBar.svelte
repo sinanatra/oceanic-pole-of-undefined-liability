@@ -10,8 +10,8 @@
         </p>
     </div>
     <div class="satellite-info">
-        <span>Satellite: {currentPoint?.name}</span>
-        <span>Year: {currentPoint?.year}</span>
+        <p>Satellite: {currentPoint?.name}</p>
+        <p>Year: {currentPoint?.year}</p>
     </div>
 </div>
 
@@ -28,9 +28,17 @@
 
     .satellite-info {
         font-size: 10px;
+        margin-right: 10px;
+        /* max-width: 250px;
+        overflow: hidden; */
+        text-align: right;
+        display: block;
     }
-    .satellite-info span {
-        margin-right: 20px;
+
+    .satellite-info p {
+        display: block;
+        margin: 0;
+        padding: 0;
     }
 
     .description p {
